@@ -91,7 +91,10 @@ class UserController extends Controller
 
         if ($count == '1') {
 
-
+            return response()->json([
+                'status' => 'Success',
+                'message' => 'Unauthorized'
+            ]);
 
         } else {
             return response()->json([
