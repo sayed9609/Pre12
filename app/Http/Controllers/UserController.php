@@ -54,4 +54,8 @@ class UserController extends Controller
         }
     }
 
+    function SendOTPCode ()
+    {
+        
+    }
 }
