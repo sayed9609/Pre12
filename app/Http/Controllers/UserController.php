@@ -51,8 +51,6 @@ class UserController extends Controller
                 'status' => 'Failed',
                 'message' => 'User Login Failed'
             ]);
-
-
         }
     }
 
