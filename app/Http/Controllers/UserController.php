@@ -163,9 +163,14 @@ class UserController extends Controller
         return view('pages.auth.registration-page');
     }
 
-    function Password_Reset()
+    function Send_OTP()
     {
-        return view('pages.auth.reset-pass-page');
+        return view('pages.auth.send-otp-page');
+    }
+
+    function Verify_OTP()
+    {
+        return view('pages.auth.verify-otp-page');
     }
 
 }

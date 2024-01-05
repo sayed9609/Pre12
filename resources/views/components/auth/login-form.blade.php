@@ -4,13 +4,15 @@
             <div class="card w-90  p-4">
                 <div class="card-body">
                     <h4>SIGN IN</h4>
-                    <br/>
+                    <br>
+                    <label for="email">Email Address</label>
                     <input id="email" placeholder="User Email" class="form-control" type="email"/>
-                    <br/>
+                    <br>
+                    <label for="password">Password</label>
                     <input id="password" placeholder="User Password" class="form-control" type="password"/>
-                    <br/>
+                    <br>
                     <button onclick="OnLogin()" class="btn w-100 bg-gradient-primary">Next</button>
-                    <hr/>
+                    <hr>
                     <div class="float-end mt-3">
                         <span>
                             <a class="text-center ms-3 h6" href="{{url('/userRegistration')}}">Sign Up </a>

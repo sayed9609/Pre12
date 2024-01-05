@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/user-registration', [UserController::class , 'UserRegistration']);
 Route::post('/user-login', [UserController::class, 'UserLogin']);
-Route::post('/user-otp', [UserController::class, 'SendOTP']);
-Route::post('/verify-otp', [UserController::class, 'VerifyOTP']);
+Route::post('/user-send-otp', [UserController::class, 'SendOTP']);
+Route::post('/user-verify-otp', [UserController::class, 'VerifyOTP']);
 
 // Reset Password
 
@@ -27,10 +27,11 @@ Route::post('/reset-password', [UserController::class, 'ResetPass'])->middleware
 
 // Page Routes
 
-Route::get('/user-login', [UserController::class,  'Login']);
-Route::get('/user-dashboard', [UserController::class, 'Dashboard']);
 Route::get('/user-registration', [UserController::class, 'Registration']);
-Route::get('/user-password-reset', [UserController::class, 'Password_Reset']);
+Route::get('/user-login', [UserController::class,  'Login']);
+Route::get('/user-send-otp', [UserController::class, 'Send_OTP']);
+Route::get('/user-verify-otp', [UserController::class, 'Verify_OTP']);
+Route::get('/user-dashboard', [UserController::class, 'Dashboard']);
 
 
 

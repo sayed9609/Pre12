@@ -4,27 +4,27 @@
             <div class="card animated fadeIn w-100 p-3">
                 <div class="card-body">
                     <h4>Sign Up</h4>
-                    <hr/>
+                    <hr>
                     <div class="container-fluid m-0 p-0">
                         <div class="row m-0 p-0">
                             <div class="col-md-4 p-2">
-                                <label>Email Address</label>
+                                <label for="email">Email Address</label>
                                 <input id="email" placeholder="User Email" class="form-control" type="email"/>
                             </div>
                             <div class="col-md-4 p-2">
-                                <label>First Name</label>
+                                <label for="first_name">First Name</label>
                                 <input id="first_name" placeholder="First Name" class="form-control" type="text"/>
                             </div>
                             <div class="col-md-4 p-2">
-                                <label>Last Name</label>
+                                <label for="last_name">Last Name</label>
                                 <input id="last_name" placeholder="Last Name" class="form-control" type="text"/>
                             </div>
                             <div class="col-md-4 p-2">
-                                <label>Mobile Number</label>
+                                <label for="mobile">Mobile Number</label>
                                 <input id="mobile" placeholder="Mobile" class="form-control" type="number"/>
                             </div>
                             <div class="col-md-4 p-2">
-                                <label>Password</label>
+                                <label for="password">Password</label>
                                 <input id="password" placeholder="User Password" class="form-control" type="password"/>
                             </div>
                         </div>

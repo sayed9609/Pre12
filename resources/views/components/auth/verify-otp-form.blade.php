@@ -4,10 +4,10 @@
             <div class="card animated fadeIn w-90  p-4">
                 <div class="card-body">
                     <h4>ENTER OTP CODE</h4>
-                    <br/>
-                    <label>4 Digit Code Here</label>
-                    <input id="otp" placeholder="Code" class="form-control" type="text"/>
-                    <br/>
+                    <br>
+                    <label for="otp">Enter 4 Digit OTP Code Here</label>
+                    <input id="otp" placeholder="Code" class="form-control" type="number"/>
+                    <br>
                     <button onclick="VerifyOtp()"  class="btn w-100 float-end bg-gradient-primary">Next</button>
                 </div>
             </div>
@@ -17,26 +17,28 @@
 <script>
    async function VerifyOtp() {
         let otp = document.getElementById('otp').value;
-        if(otp.length !==4){
+        if(otp.length !== 4){
            errorToast('Invalid OTP')
         }
-        else{
+        else {
             showLoader();
-            let res=await axios.post('/verify-otp', {
+            let response=await axios.post('/user-verify-otp', {
                 otp: otp,
                 email:sessionStorage.getItem('email')
             })
             hideLoader();
 
-            if(res.status===200 && res.data['status']==='success'){
-                successToast(res.data['message'])
+            if(response.status===200 && response.data['status'] === 'Successful')
+            {
+                successToast(response.data['message']);
                 sessionStorage.clear();
                 setTimeout(() => {
                     window.location.href='/resetPassword'
                 }, 1000);
             }
-            else{
-                errorToast(res.data['message'])
+            else
+            {
+                errorToast(response.data['message']);
             }
         }
     }
