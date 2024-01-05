@@ -13,13 +13,28 @@ class JWTToken
         $key = env('JWT_KEY');
 
         $payload = [
-            'iss' => 'laravel-token',
+            'iss' => 'login-token',
             'iat' => time(),
             'exp' => time()+(60*60),
             'userEmail' => $userEmail
         ];
 
         return JWT::encode($payload,$key,"HS256");
+
+    }
+
+    public static function CreateOTPToken ($userEmail){
+
+        $key = env('JWT_KEY');
+
+        $payload = [
+            'iss' => 'otp-token',
+            'iat' => time(),
+            'exp' => time()+(60*20),
+            'userEmail' => $userEmail
+        ];
+
+        return JWT::encode($payload, $key, "HS256");
 
     }
 
@@ -30,7 +45,7 @@ class JWTToken
             $decode = JWT::decode($token, new Key($key,'HS256'));
             return $decode->userEmail;
         }
-        catch (Exception) {
+        catch (Exception $exception) {
             return 'unauthorized';
         }
 

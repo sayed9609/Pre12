@@ -23,14 +23,14 @@ class UserController extends Controller
             ]);
 
             return response()->json([
-                'status' => 'Success',
+                'status' => 'Successful',
                 'message' => 'User Registration Successfully'
             ]);
 
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             return response()->json([
                 'status' => 'Failed',
-                'message' => $e->getMessage()
+                'message' => $exception->getMessage()
             ]);
         }
     }
@@ -44,10 +44,10 @@ class UserController extends Controller
         if ($count == 1) {
             $token = JWTToken::CreateToken($request->input('email'));
             return response()->json([
-                'status' => 'Success',
+                'status' => 'Successful',
                 'message' => 'User Login Successfully',
                 'token' => $token
-            ]);
+            ])->cookie('token', $token, 60*60);
         } else {
             return response()->json([
                 'status' => 'Failed',
@@ -56,27 +56,27 @@ class UserController extends Controller
         }
     }
 
-    function SendOTPCode(Request $request): object
+    function SendOTP(Request $request): object
     {
         $email = $request->input('email');
         $otp = rand(1000, 9999);
         $count = User::where('email', '=', $email)->count();
 
-        if ($count == '1') {
+        if ($count == 1) {
 
             Mail::to($email)->send(new OTPMail($otp));
 
             User::where('email', '=', $email)->update(['otp' => $otp]);
 
             return response()->json([
-                'status' => 'Success',
+                'status' => 'Successful',
                 'message' => 'OTP Send Successfully'
             ]);
 
         } else {
             return response()->json([
                 'status' => 'Failed',
-                'message' => 'Unauthorized'
+                'message' => 'Unauthorized User'
             ]);
         }
     }
@@ -89,19 +89,66 @@ class UserController extends Controller
             ->where('otp', '=', $otp)
             ->count();
 
-        if ($count == '1') {
+        if ($count == 1) {
+
+            // update otp to zero
+            User::where('otp', '=', $otp)->update(['otp' => '0']);
+
+            //Create token for verifying OTP
+            $token = JWTToken::CreateOTPToken($email);
 
             return response()->json([
-                'status' => 'Success',
-                'message' => 'Unauthorized'
+                'status' => 'Successful',
+                'message' => 'OTP Verification Successful',
+                'token' => $token
             ]);
 
         } else {
             return response()->json([
                 'status' => 'Failed',
-                'message' => 'Unauthorized'
+                'message' => 'Unauthorized User'
             ]);
         }
+    }
+
+    function ResetPass(Request $request): object
+    {
+        try {
+
+            $email = $request->header('email');
+            $password = $request->input('password');
+            User::where('email', '=', $email)->update(['password' => $password]);
+
+            return response()->json([
+                'status' => 'Successful',
+                'message' => 'Password Reset Successfully'
+            ]);
+
+
+        } catch (Exception $exception) {
+
+            return response()->json([
+                'status' => 'Failed',
+                'message' => $exception->getMessage()
+            ]);
+
+        }
+    }
+
+
+    function Login()
+    {
+        return view('pages.auth.login-page');
+    }
+
+    function Dashboard()
+    {
+        return view('pages.dashboard.dashboard-page');
+    }
+
+    function Registration()
+    {
+        return view('pages.auth.registration-page');
     }
 
 }
