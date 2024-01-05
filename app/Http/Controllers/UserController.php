@@ -13,6 +13,14 @@ class UserController extends Controller
 {
     function UserRegistration(Request $request): object
     {
+        $this->validate($request,[
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
+            'email' => 'required|email',
+            'mobile' => 'required|string|max:20',
+            'password' => 'required|string|min:8'
+        ]);
+
         try {
             User::create([
                 'first_name' => $request->input('first_name'),
@@ -37,6 +45,11 @@ class UserController extends Controller
 
     function UserLogin(Request $request): object
     {
+        $this->validate($request,[
+            'email' => 'required|email',
+            'password' => 'required|string|min:8'
+        ]);
+
         $count = User::where('email', '=', $request->input('email'))
             ->where('password', '=', $request->input('password'))
             ->count();
@@ -46,12 +59,11 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'Successful',
                 'message' => 'User Login Successfully',
-                'token' => $token
             ])->cookie('token', $token, 60*60);
         } else {
             return response()->json([
                 'status' => 'Failed',
-                'message' => 'User Login Failed'
+                'message' => 'Wrong Email Or Password'
             ]);
         }
     }
@@ -149,6 +161,11 @@ class UserController extends Controller
     function Registration()
     {
         return view('pages.auth.registration-page');
+    }
+
+    function Password_Reset()
+    {
+        return view('pages.auth.reset-pass-page');
     }
 
 }

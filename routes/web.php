@@ -30,6 +30,7 @@ Route::post('/reset-password', [UserController::class, 'ResetPass'])->middleware
 Route::get('/user-login', [UserController::class,  'Login']);
 Route::get('/user-dashboard', [UserController::class, 'Dashboard']);
 Route::get('/user-registration', [UserController::class, 'Registration']);
+Route::get('/user-password-reset', [UserController::class, 'Password_Reset']);
 
 
 

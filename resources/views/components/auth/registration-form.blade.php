@@ -21,7 +21,7 @@
                             </div>
                             <div class="col-md-4 p-2">
                                 <label>Mobile Number</label>
-                                <input id="mobile" placeholder="Mobile" class="form-control" type="mobile"/>
+                                <input id="mobile" placeholder="Mobile" class="form-control" type="number"/>
                             </div>
                             <div class="col-md-4 p-2">
                                 <label>Password</label>
@@ -30,7 +30,7 @@
                         </div>
                         <div class="row m-0 p-0">
                             <div class="col-md-4 p-2">
-                                <button onclick="onRegistration()" class="btn mt-3 w-100  bg-gradient-primary">Complete</button>
+                                <button onclick="OnRegistration()" class="btn mt-3 w-100  bg-gradient-primary">Complete</button>
                             </div>
                         </div>
                     </div>
@@ -43,6 +43,62 @@
 <script>
 
     async function OnRegistration(){
+
+        let email = document.getElementById('email').value;
+        let first_name = document.getElementById('first_name').value;
+        let last_name = document.getElementById('last_name').value;
+        let mobile = document.getElementById('mobile').value;
+        let password = document.getElementById('password').value;
+
+
+        if(email.length === 0)
+        {
+            errorToast('Valid Email Required');
+        }
+        else if(first_name.length === 0)
+        {
+            errorToast('First Name Required');
+        }
+        else if(last_name.length === 0)
+        {
+            errorToast('Last Name Required');
+        }
+        else if(mobile.length === 0)
+        {
+            errorToast('Mobile Number Required');
+        }
+        else if(password.length === 0)
+        {
+            errorToast('Password Required');
+        }
+        else if(password.length < 8)
+        {
+            errorToast('Password Must Be At Least 8 Characters Long');
+        }
+        else {
+
+            showLoader();
+            let result = await axios.post('/user-registration',{
+                first_name:first_name,
+                last_name:last_name,
+                email:email,
+                mobile:mobile,
+                password:password
+            });
+            hideLoader();
+
+            if(result.status === 200 && result.data['status'] === 'Successful')
+            {
+                successToast(result.data['message']);
+                setTimeout(function (){
+                    window.location.href='/user-login'
+                },2000);
+            }
+            else
+            {
+                errorToast(result.data['message']);
+            }
+        }
 
     }
 

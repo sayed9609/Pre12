@@ -9,7 +9,7 @@
                     <br/>
                     <input id="password" placeholder="User Password" class="form-control" type="password"/>
                     <br/>
-                    <button onclick="SubmitLogin()" class="btn w-100 bg-gradient-primary">Next</button>
+                    <button onclick="OnLogin()" class="btn w-100 bg-gradient-primary">Next</button>
                     <hr/>
                     <div class="float-end mt-3">
                         <span>
@@ -31,19 +31,29 @@
         let email = document.getElementById('email').value;
         let password = document.getElementById('password').value;
 
-        if(email.length === 0) {
+        if(email.length === 0)
+        {
             errorToast('Email Required');
-        } else if (password.length===0) {
+        }
+        else if (password.length===0)
+        {
             errorToast('Password Required');
-        } else {
+        }
+        else if (password.length < 8)
+        {
+            errorToast('Login Failed')
+        }
+        else
+        {
             showLoader();
             let response = await axios.post('/user-login',{ email:email, password:password });
             hideLoader();
 
             if(response.status===200 && response.data['status']==='Successful') {
-
-                window.location.href="/user-dashboard";
-
+                successToast(response.data['message']);
+                setTimeout(function (){
+                    window.location.href="/user-dashboard";
+                },1000);
             } else {
                 errorToast(response.data['message']);
             }
