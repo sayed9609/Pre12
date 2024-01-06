@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Api Routes
+
 Route::post('/user-registration', [UserController::class , 'UserRegistration']);
 Route::post('/user-login', [UserController::class, 'UserLogin']);
 Route::post('/user-send-otp', [UserController::class, 'SendOTP']);
@@ -22,8 +24,9 @@ Route::post('/user-verify-otp', [UserController::class, 'VerifyOTP']);
 
 // Reset Password
 
-Route::post('/reset-password', [UserController::class, 'ResetPass'])->middleware([TokenVerificationMiddleware::class]);
+Route::post('/user-reset-password', [UserController::class, 'ResetPass'])->middleware([TokenVerificationMiddleware::class]);
 
+//------------------------------------------------------------------------//
 
 // Page Routes
 
@@ -31,6 +34,7 @@ Route::get('/user-registration', [UserController::class, 'Registration']);
 Route::get('/user-login', [UserController::class,  'Login']);
 Route::get('/user-send-otp', [UserController::class, 'Send_OTP']);
 Route::get('/user-verify-otp', [UserController::class, 'Verify_OTP']);
+Route::get('/user-reset-password', [UserController::class, 'Reset_Password']);
 Route::get('/user-dashboard', [UserController::class, 'Dashboard']);
 
 

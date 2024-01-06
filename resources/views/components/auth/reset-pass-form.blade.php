@@ -5,10 +5,10 @@
                 <div class="card-body">
                     <h4>SET NEW PASSWORD</h4>
                     <br/>
-                    <label>New Password</label>
+                    <label for="password">New Password</label>
                     <input id="password" placeholder="New Password" class="form-control" type="password"/>
                     <br/>
-                    <label>Confirm Password</label>
+                    <label for="cpassword">Confirm Password</label>
                     <input id="cpassword" placeholder="Confirm Password" class="form-control" type="password"/>
                     <br/>
                     <button onclick="ResetPass()" class="btn w-100 bg-gradient-primary">Next</button>
@@ -24,22 +24,22 @@
         let cpassword = document.getElementById('cpassword').value;
 
         if(password.length===0){
-            errorToast('Password is required')
+            errorToast('Password is required');
         }
-        else if(cpassword.length===0){
-            errorToast('Confirm Password is required')
+        else if(cpassword.length === 0){
+            errorToast('Confirm Password is required');
         }
         else if(password!==cpassword){
-            errorToast('Password and Confirm Password must be same')
+            errorToast('Password did not match');
         }
         else{
           showLoader()
-          let res=await axios.post("/reset-password",{password:password});
+          let res=await axios.post("/user-reset-password",{password:password});
           hideLoader();
-          if(res.status===200 && res.data['status']==='success'){
+          if(res.status===200 && res.data['status']==='Successful'){
               successToast(res.data['message']);
               setTimeout(function () {
-                  window.location.href="/userLogin";
+                  window.location.href="/user-login";
               },1000);
           }
           else{

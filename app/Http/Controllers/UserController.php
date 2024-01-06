@@ -113,7 +113,7 @@ class UserController extends Controller
                 'status' => 'Successful',
                 'message' => 'OTP Verification Successful',
                 'token' => $token
-            ]);
+            ])->cookie('token', $token, 60*60);
 
         } else {
             return response()->json([
@@ -171,6 +171,11 @@ class UserController extends Controller
     function Verify_OTP()
     {
         return view('pages.auth.verify-otp-page');
+    }
+
+    function Reset_Password()
+    {
+        return view('pages.auth.reset-pass-page');
     }
 
 }

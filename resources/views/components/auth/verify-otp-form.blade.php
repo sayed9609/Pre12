@@ -33,7 +33,7 @@
                 successToast(response.data['message']);
                 sessionStorage.clear();
                 setTimeout(() => {
-                    window.location.href='/resetPassword'
+                    window.location.href='/user-reset-password'
                 }, 1000);
             }
             else
