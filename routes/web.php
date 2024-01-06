@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Landing Page
+
+Route::get('/', function (){
+    return view('pages.home');
+});
 
 // Api Routes
 
